@@ -248,7 +248,7 @@ namespace ServiceLib.Services.CoreConfig
                 v2rayConfig.outbounds.Clear();
                 v2rayConfig.routing.rules.Clear();
 
-                var httpPort = AppHandler.Instance.GetLocalPort(EInboundProtocol.speedtest);
+                var initPort = AppHandler.Instance.GetLocalPort(EInboundProtocol.speedtest);
 
                 foreach (var it in selecteds)
                 {
@@ -270,8 +270,8 @@ namespace ServiceLib.Services.CoreConfig
                     }
 
                     //find unused port
-                    var port = httpPort;
-                    for (var k = httpPort; k < Global.MaxPort; k++)
+                    var port = initPort;
+                    for (var k = initPort; k < Global.MaxPort; k++)
                     {
                         if (lstIpEndPoints?.FindIndex(_it => _it.Port == k) >= 0)
                         {
@@ -283,7 +283,7 @@ namespace ServiceLib.Services.CoreConfig
                         }
                         //found
                         port = k;
-                        httpPort = port + 1;
+                        initPort = port + 1;
                         break;
                     }
 
@@ -359,7 +359,7 @@ namespace ServiceLib.Services.CoreConfig
 
         #region private gen function
 
-        public async Task<int> GenLog(V2rayConfig v2rayConfig)
+        private async Task<int> GenLog(V2rayConfig v2rayConfig)
         {
             try
             {
@@ -384,7 +384,7 @@ namespace ServiceLib.Services.CoreConfig
             return 0;
         }
 
-        public async Task<int> GenInbounds(V2rayConfig v2rayConfig)
+        private async Task<int> GenInbounds(V2rayConfig v2rayConfig)
         {
             try
             {
@@ -394,11 +394,17 @@ namespace ServiceLib.Services.CoreConfig
                 var inbound = GetInbound(_config.Inbound.First(), EInboundProtocol.socks, true);
                 v2rayConfig.inbounds.Add(inbound);
 
+                if (_config.Inbound.First().SecondLocalPortEnabled)
+                {
+                    var inbound2 = GetInbound(_config.Inbound.First(), EInboundProtocol.socks2, true);
+                    v2rayConfig.inbounds.Add(inbound2);
+                }
+
                 if (_config.Inbound.First().AllowLANConn)
                 {
                     if (_config.Inbound.First().NewPort4LAN)
                     {
-                        var inbound3 = GetInbound(_config.Inbound.First(), EInboundProtocol.socks2, true);
+                        var inbound3 = GetInbound(_config.Inbound.First(), EInboundProtocol.socks3, true);
                         inbound3.listen = listen;
                         v2rayConfig.inbounds.Add(inbound3);
 
@@ -481,7 +487,7 @@ namespace ServiceLib.Services.CoreConfig
             return 0;
         }
 
-        public async Task<int> GenRoutingUserRule(RulesItem4Ray? rule, V2rayConfig v2rayConfig)
+        private async Task<int> GenRoutingUserRule(RulesItem4Ray? rule, V2rayConfig v2rayConfig)
         {
             try
             {
@@ -559,7 +565,7 @@ namespace ServiceLib.Services.CoreConfig
             return 0;
         }
 
-        public async Task<int> GenOutbound(ProfileItem node, Outbounds4Ray outbound)
+        private async Task<int> GenOutbound(ProfileItem node, Outbounds4Ray outbound)
         {
             try
             {
@@ -700,8 +706,7 @@ namespace ServiceLib.Services.CoreConfig
 
                             await GenOutboundMux(node, outbound, _config.CoreBasicItem.MuxEnabled);
 
-                            if (node.StreamSecurity == Global.StreamSecurityReality
-                                || node.StreamSecurity == Global.StreamSecurity)
+                            if (node.StreamSecurity == Global.StreamSecurityReality || node.StreamSecurity == Global.StreamSecurity)
                             {
                                 if (Utils.IsNotEmpty(node.Flow))
                                 {
@@ -745,7 +750,7 @@ namespace ServiceLib.Services.CoreConfig
                 }
 
                 outbound.protocol = Global.ProtocolTypes[node.ConfigType];
-                await GenBoundStreamSettings(node, outbound.streamSettings);
+                await GenBoundStreamSettings(node, outbound);
             }
             catch (Exception ex)
             {
@@ -754,7 +759,7 @@ namespace ServiceLib.Services.CoreConfig
             return 0;
         }
 
-        public async Task<int> GenOutboundMux(ProfileItem node, Outbounds4Ray outbound, bool enabled)
+        private async Task<int> GenOutboundMux(ProfileItem node, Outbounds4Ray outbound, bool enabled)
         {
             try
             {
@@ -778,14 +783,16 @@ namespace ServiceLib.Services.CoreConfig
             return 0;
         }
 
-        public async Task<int> GenBoundStreamSettings(ProfileItem node, StreamSettings4Ray streamSettings)
+        private async Task<int> GenBoundStreamSettings(ProfileItem node, Outbounds4Ray outbound)
         {
             try
             {
+                var streamSettings = outbound.streamSettings;
                 streamSettings.network = node.GetNetwork();
-                string host = node.RequestHost.TrimEx();
-                string sni = node.Sni;
-                string useragent = "";
+                var host = node.RequestHost.TrimEx();
+                var path = node.Path.TrimEx();
+                var sni = node.Sni.TrimEx();
+                var useragent = "";
                 if (!_config.CoreBasicItem.DefUserAgent.IsNullOrEmpty())
                 {
                     try
@@ -858,9 +865,9 @@ namespace ServiceLib.Services.CoreConfig
                         {
                             type = node.HeaderType
                         };
-                        if (Utils.IsNotEmpty(node.Path))
+                        if (Utils.IsNotEmpty(path))
                         {
-                            kcpSettings.seed = node.Path;
+                            kcpSettings.seed = path;
                         }
                         streamSettings.kcpSettings = kcpSettings;
                         break;
@@ -868,9 +875,10 @@ namespace ServiceLib.Services.CoreConfig
                     case nameof(ETransport.ws):
                         WsSettings4Ray wsSettings = new();
                         wsSettings.headers = new Headers4Ray();
-                        string path = node.Path;
+
                         if (Utils.IsNotEmpty(host))
                         {
+                            wsSettings.host = host;
                             wsSettings.headers.Host = host;
                         }
                         if (Utils.IsNotEmpty(path))
@@ -888,9 +896,9 @@ namespace ServiceLib.Services.CoreConfig
                     case nameof(ETransport.httpupgrade):
                         HttpupgradeSettings4Ray httpupgradeSettings = new();
 
-                        if (Utils.IsNotEmpty(node.Path))
+                        if (Utils.IsNotEmpty(path))
                         {
-                            httpupgradeSettings.path = node.Path;
+                            httpupgradeSettings.path = path;
                         }
                         if (Utils.IsNotEmpty(host))
                         {
@@ -902,16 +910,11 @@ namespace ServiceLib.Services.CoreConfig
                     //xhttp
                     case nameof(ETransport.xhttp):
                         streamSettings.network = ETransport.xhttp.ToString();
-                        XhttpSettings4Ray xhttpSettings = new()
-                        {
-                            scMaxEachPostBytes = "500000-1000000",
-                            scMaxConcurrentPosts = "50-100",
-                            scMinPostsIntervalMs = "30-50"
-                        };
+                        XhttpSettings4Ray xhttpSettings = new();
 
-                        if (Utils.IsNotEmpty(node.Path))
+                        if (Utils.IsNotEmpty(path))
                         {
-                            xhttpSettings.path = node.Path;
+                            xhttpSettings.path = path;
                         }
                         if (Utils.IsNotEmpty(host))
                         {
@@ -927,6 +930,7 @@ namespace ServiceLib.Services.CoreConfig
                         }
 
                         streamSettings.xhttpSettings = xhttpSettings;
+                        await GenOutboundMux(node, outbound, false);
 
                         break;
                     //h2
@@ -937,7 +941,7 @@ namespace ServiceLib.Services.CoreConfig
                         {
                             httpSettings.host = Utils.String2List(host);
                         }
-                        httpSettings.path = node.Path;
+                        httpSettings.path = path;
 
                         streamSettings.httpSettings = httpSettings;
 
@@ -947,7 +951,7 @@ namespace ServiceLib.Services.CoreConfig
                         QuicSettings4Ray quicsettings = new()
                         {
                             security = host,
-                            key = node.Path,
+                            key = path,
                             header = new Header4Ray
                             {
                                 type = node.HeaderType
@@ -971,7 +975,7 @@ namespace ServiceLib.Services.CoreConfig
                         GrpcSettings4Ray grpcSettings = new()
                         {
                             authority = Utils.IsNullOrEmpty(host) ? null : host,
-                            serviceName = node.Path,
+                            serviceName = path,
                             multiMode = node.HeaderType == Global.GrpcMultiMode,
                             idle_timeout = _config.GrpcItem.IdleTimeout,
                             health_check_timeout = _config.GrpcItem.HealthCheckTimeout,
@@ -1001,9 +1005,9 @@ namespace ServiceLib.Services.CoreConfig
                             request = request.Replace("$requestUserAgent$", $"{useragent.AppendQuotes()}");
                             //Path
                             string pathHttp = @"/";
-                            if (Utils.IsNotEmpty(node.Path))
+                            if (Utils.IsNotEmpty(path))
                             {
-                                string[] arrPath = node.Path.Split(',');
+                                string[] arrPath = path.Split(',');
                                 pathHttp = string.Join(",".AppendQuotes(), arrPath);
                             }
                             request = request.Replace("$requestPath$", $"{pathHttp.AppendQuotes()}");
@@ -1021,7 +1025,7 @@ namespace ServiceLib.Services.CoreConfig
             return 0;
         }
 
-        public async Task<int> GenDns(ProfileItem? node, V2rayConfig v2rayConfig)
+        private async Task<int> GenDns(ProfileItem? node, V2rayConfig v2rayConfig)
         {
             try
             {
@@ -1084,7 +1088,7 @@ namespace ServiceLib.Services.CoreConfig
             return 0;
         }
 
-        public async Task<int> GenDnsDomains(ProfileItem? node, JsonNode dns, DNSItem? dNSItem)
+        private async Task<int> GenDnsDomains(ProfileItem? node, JsonNode dns, DNSItem? dNSItem)
         {
             if (node == null)
             { return 0; }
@@ -1104,7 +1108,7 @@ namespace ServiceLib.Services.CoreConfig
             return 0;
         }
 
-        public async Task<int> GenStatistic(V2rayConfig v2rayConfig)
+        private async Task<int> GenStatistic(V2rayConfig v2rayConfig)
         {
             if (_config.GuiItem.EnableStatistics)
             {

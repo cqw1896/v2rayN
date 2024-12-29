@@ -9,6 +9,7 @@ namespace ServiceLib.ViewModels
         #region Core
 
         [Reactive] public int localPort { get; set; }
+        [Reactive] public bool SecondLocalPortEnabled { get; set; }
         [Reactive] public bool udpEnabled { get; set; }
         [Reactive] public bool sniffingEnabled { get; set; }
         public IList<string> destOverride { get; set; }
@@ -62,6 +63,7 @@ namespace ServiceLib.ViewModels
         [Reactive] public int SpeedTestTimeout { get; set; }
         [Reactive] public string SpeedTestUrl { get; set; }
         [Reactive] public string SpeedPingTestUrl { get; set; }
+        [Reactive] public int SpeedTestPageSize { get; set; }
         [Reactive] public bool EnableHWA { get; set; }
         [Reactive] public string SubConvertUrl { get; set; }
         [Reactive] public int MainGirdOrientation { get; set; }
@@ -124,6 +126,7 @@ namespace ServiceLib.ViewModels
 
             var inbound = _config.Inbound.First();
             localPort = inbound.LocalPort;
+            SecondLocalPortEnabled = inbound.SecondLocalPortEnabled;
             udpEnabled = inbound.UdpEnabled;
             sniffingEnabled = inbound.SniffingEnabled;
             routeOnly = inbound.RouteOnly;
@@ -175,6 +178,7 @@ namespace ServiceLib.ViewModels
             CurrentFontFamily = _config.UiItem.CurrentFontFamily;
             SpeedTestTimeout = _config.SpeedTestItem.SpeedTestTimeout;
             SpeedTestUrl = _config.SpeedTestItem.SpeedTestUrl;
+            SpeedTestPageSize = _config.SpeedTestItem.SpeedTestPageSize;
             SpeedPingTestUrl = _config.SpeedTestItem.SpeedPingTestUrl;
             EnableHWA = _config.GuiItem.EnableHWA;
             SubConvertUrl = _config.ConstItem.SubConvertUrl;
@@ -286,6 +290,7 @@ namespace ServiceLib.ViewModels
 
             //Core
             _config.Inbound.First().LocalPort = localPort;
+            _config.Inbound.First().SecondLocalPortEnabled = SecondLocalPortEnabled;
             _config.Inbound.First().UdpEnabled = udpEnabled;
             _config.Inbound.First().SniffingEnabled = sniffingEnabled;
             _config.Inbound.First().DestOverride = destOverride?.ToList();
@@ -325,6 +330,7 @@ namespace ServiceLib.ViewModels
             _config.GuiItem.TrayMenuServersLimit = TrayMenuServersLimit;
             _config.UiItem.CurrentFontFamily = CurrentFontFamily;
             _config.SpeedTestItem.SpeedTestTimeout = SpeedTestTimeout;
+            _config.SpeedTestItem.SpeedTestPageSize = SpeedTestPageSize;
             _config.SpeedTestItem.SpeedTestUrl = SpeedTestUrl;
             _config.SpeedTestItem.SpeedPingTestUrl = SpeedPingTestUrl;
             _config.GuiItem.EnableHWA = EnableHWA;
