@@ -34,7 +34,7 @@
                 Text="{x:Static resx:ResUI.menuRulemode}" />
             <ComboBox
                 x:Name="cmbRulemode"
-                Width="80"
+                Width="100"
                 Margin="{StaticResource MarginLeftRight8}"
                 Style="{StaticResource DefComboBox}">
                 <ComboBoxItem Content="{x:Static resx:ResUI.menuModeRule}" />
@@ -49,7 +49,7 @@
                 Text="{x:Static resx:ResUI.TbSorting}" />
             <ComboBox
                 x:Name="cmbSorting"
-                Width="60"
+                Width="100"
                 Margin="{StaticResource MarginLeftRight8}"
                 Style="{StaticResource DefComboBox}">
                 <ComboBoxItem Content="{x:Static resx:ResUI.TbSortingDelay}" />

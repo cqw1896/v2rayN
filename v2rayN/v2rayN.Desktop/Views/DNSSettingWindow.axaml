@@ -1,4 +1,4 @@
-﻿<Window
+<Window
     x:Class="v2rayN.Desktop.Views.DNSSettingWindow"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -13,10 +13,10 @@
     ShowInTaskbar="False"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <DockPanel Classes="Margin8">
+    <DockPanel Margin="{StaticResource Margin8}">
         <StackPanel
+            Margin="{StaticResource Margin4}"
             HorizontalAlignment="Center"
-            Classes="Margin8"
             DockPanel.Dock="Bottom"
             Orientation="Horizontal">
             <Button
@@ -28,29 +28,29 @@
             <Button
                 x:Name="btnCancel"
                 Width="100"
-                Margin="8,0"
+                Margin="{StaticResource MarginLr8}"
                 Content="{x:Static resx:ResUI.TbCancel}"
                 Cursor="Hand"
                 IsCancel="True" />
         </StackPanel>
 
-        <TabControl HorizontalContentAlignment="Left">
+        <TabControl HorizontalContentAlignment="Stretch">
             <TabItem Header="{x:Static resx:ResUI.TbSettingsCoreDns}">
-                <DockPanel Classes="Margin8">
+                <DockPanel Margin="{StaticResource Margin8}">
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                         <TextBlock
+                            Margin="{StaticResource Margin4}"
                             VerticalAlignment="Center"
-                            Classes="Margin8"
                             Text="{x:Static resx:ResUI.TbSettingsRemoteDNS}" />
 
-                        <TextBlock VerticalAlignment="Center" Classes="Margin8">
+                        <TextBlock Margin="{StaticResource Margin4}" VerticalAlignment="Center">
                             <HyperlinkButton Classes="WithIcon" Click="linkDnsObjectDoc_Click">
                                 <TextBlock Text="{x:Static resx:ResUI.TbDnsObjectDoc}" />
                             </HyperlinkButton>
                         </TextBlock>
                         <Button
                             x:Name="btnImportDefConfig4V2ray"
-                            Classes="Margin8"
+                            Margin="{StaticResource Margin4}"
                             Content="{x:Static resx:ResUI.TbSettingDnsImportDefConfig}"
                             Cursor="Hand" />
                     </StackPanel>
@@ -58,61 +58,64 @@
                     <WrapPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock
+                                Margin="{StaticResource Margin4}"
                                 VerticalAlignment="Center"
-                                Classes="Margin8"
                                 Text="{x:Static resx:ResUI.TbSettingsUseSystemHosts}" />
                             <ToggleSwitch
                                 x:Name="togUseSystemHosts"
-                                HorizontalAlignment="Left"
-                                Classes="Margin8" />
+                                Margin="{StaticResource Margin4}"
+                                HorizontalAlignment="Left" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
                             <TextBlock
+                                Margin="{StaticResource Margin4}"
                                 VerticalAlignment="Center"
-                                Classes="Margin8"
                                 Text="{x:Static resx:ResUI.TbSettingsDomainStrategy4Freedom}" />
                             <ComboBox
                                 x:Name="cmbdomainStrategy4Freedom"
                                 Width="150"
-                                Classes="Margin8" />
+                                Margin="{StaticResource Margin4}" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
                             <TextBlock
+                                Margin="{StaticResource Margin4}"
                                 VerticalAlignment="Center"
-                                Classes="Margin8"
                                 Text="{x:Static resx:ResUI.TbSettingsDomainDNSAddress}" />
                             <ComboBox
                                 x:Name="cmbdomainDNSAddress"
                                 Width="150"
-                                Classes="Margin8" />
+                                Margin="{StaticResource Margin4}" />
                         </StackPanel>
                     </WrapPanel>
 
-                    <Grid Classes="Margin8">
+                    <HeaderedContentControl
+                        Margin="{StaticResource Margin4}"
+                        BorderBrush="Gray"
+                        BorderThickness="1"
+                        Header="HTTP/SOCKS">
                         <TextBox
-                            x:Name="txtnormalDNS"
+                            Name="txtnormalDNS"
                             VerticalAlignment="Stretch"
-                            BorderThickness="1"
-                            Classes="TextArea Margin8"
-                            TextWrapping="Wrap"
-                            Watermark="HTTP/SOCKS" />
-                    </Grid>
+                            Classes="TextArea"
+                            MinLines="10"
+                            TextWrapping="Wrap" />
+                    </HeaderedContentControl>
                 </DockPanel>
             </TabItem>
 
             <TabItem Header="{x:Static resx:ResUI.TbSettingsCoreDnsSingbox}">
-                <DockPanel Classes="Margin8">
+                <DockPanel Margin="{StaticResource Margin8}">
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                        <TextBlock VerticalAlignment="Center" Classes="Margin8">
+                        <TextBlock Margin="{StaticResource Margin4}" VerticalAlignment="Center">
                             <HyperlinkButton Classes="WithIcon" Click="linkDnsSingboxObjectDoc_Click">
                                 <TextBlock Text="{x:Static resx:ResUI.TbDnsSingboxObjectDoc}" />
                             </HyperlinkButton>
                         </TextBlock>
                         <Button
                             x:Name="btnImportDefConfig4Singbox"
-                            Classes="Margin8"
+                            Margin="{StaticResource Margin4}"
                             Content="{x:Static resx:ResUI.TbSettingDnsImportDefConfig}"
                             Cursor="Hand" />
                     </StackPanel>
@@ -120,52 +123,57 @@
                     <WrapPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock
+                                Margin="{StaticResource Margin4}"
                                 VerticalAlignment="Center"
-                                Classes="Margin8"
                                 Text="{x:Static resx:ResUI.TbSettingsDomainStrategy4Out}" />
                             <ComboBox
                                 x:Name="cmbdomainStrategy4Out"
                                 Width="150"
-                                Classes="Margin8" />
+                                Margin="{StaticResource Margin4}" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
                             <TextBlock
+                                Margin="{StaticResource Margin4}"
                                 VerticalAlignment="Center"
-                                Classes="Margin8"
                                 Text="{x:Static resx:ResUI.TbSettingsDomainDNSAddress}" />
                             <ComboBox
                                 x:Name="cmbdomainDNSAddress2"
                                 Width="150"
-                                Classes="Margin8" />
+                                Margin="{StaticResource Margin4}" />
                         </StackPanel>
                     </WrapPanel>
 
-                    <Grid Classes="Margin8" ColumnDefinitions="*,10,*">
+                    <Grid Margin="{StaticResource Margin4}" ColumnDefinitions="*,10,*">
 
-                        <TextBox
-                            x:Name="txtnormalDNS2"
+                        <HeaderedContentControl
                             Grid.Column="0"
-                            Width="400"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
+                            BorderBrush="Gray"
                             BorderThickness="1"
-                            Classes="TextArea Margin8"
-                            TextWrapping="Wrap"
-                            Watermark="HTTP/SOCKS" />
+                            Header="HTTP/SOCKS">
+                            <TextBox
+                                Name="txtnormalDNS2"
+                                VerticalAlignment="Stretch"
+                                Classes="TextArea"
+                                MinLines="10"
+                                TextWrapping="Wrap" />
+                        </HeaderedContentControl>
 
                         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
 
-                        <TextBox
-                            x:Name="txttunDNS2"
+                        <HeaderedContentControl
                             Grid.Column="2"
-                            Width="400"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
+                            BorderBrush="Gray"
                             BorderThickness="1"
-                            Classes="TextArea Margin8"
-                            TextWrapping="Wrap"
-                            Watermark="{x:Static resx:ResUI.TbSettingsTunMode}" />
+                            Header="{x:Static resx:ResUI.TbSettingsTunMode}">
+                            <TextBox
+                                Name="txttunDNS2"
+                                VerticalAlignment="Stretch"
+                                Classes="TextArea"
+                                MinLines="10"
+                                TextWrapping="Wrap" />
+                        </HeaderedContentControl>
+
                     </Grid>
                 </DockPanel>
             </TabItem>

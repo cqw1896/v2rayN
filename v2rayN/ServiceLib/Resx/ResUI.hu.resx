@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -132,12 +132,6 @@
   <data name="Downloading" xml:space="preserve">
     <value>Letöltés...</value>
   </data>
-  <data name="downloadSpeed" xml:space="preserve">
-    <value>Letöltés</value>
-  </data>
-  <data name="DownloadYesNo" xml:space="preserve">
-    <value>Le szeretné tölteni? {0}</value>
-  </data>
   <data name="FailedConversionConfiguration" xml:space="preserve">
     <value>Nem sikerült a konfigurációs fájl átalakítása</value>
   </data>
@@ -209,9 +203,6 @@
   </data>
   <data name="LvTransportProtocol" xml:space="preserve">
     <value>Szállítás</value>
-  </data>
-  <data name="MsgClearSubscription" xml:space="preserve">
-    <value>Eredeti előfizetési tartalom törlése</value>
   </data>
   <data name="MsgDownloadV2rayCoreSuccessfully" xml:space="preserve">
     <value>A Core letöltése sikerült</value>
@@ -289,8 +280,7 @@
     <value>Szolgáltatás indítása ({0})...</value>
   </data>
   <data name="SuccessfulConfiguration" xml:space="preserve">
-    <value>Konfiguráció sikeres
-{0}</value>
+    <value>Konfiguráció sikeres {0}</value>
   </data>
   <data name="SuccessfullyImportedCustomServer" xml:space="preserve">
     <value>A testreszabott konfigurációs szerver sikeresen importálva</value>
@@ -391,9 +381,6 @@
   <data name="RegisterGlobalHotkeySuccessfully" xml:space="preserve">
     <value>A globális billentyűparancs {0} sikeresen bejegyezve</value>
   </data>
-  <data name="UngroupedServers" xml:space="preserve">
-    <value>Összegyűjtetlen</value>
-  </data>
   <data name="AllGroupServers" xml:space="preserve">
     <value>Összes</value>
   </data>
@@ -480,12 +467,6 @@
   </data>
   <data name="TbSettingsColor" xml:space="preserve">
     <value>Szín</value>
-  </data>
-  <data name="TbSettingsColorMode" xml:space="preserve">
-    <value>Sötét mód</value>
-  </data>
-  <data name="TbSettingsFollowSystemTheme" xml:space="preserve">
-    <value>Kövesse a rendszer témáját</value>
   </data>
   <data name="TbSettingsLanguage" xml:space="preserve">
     <value>Nyelv (Újraindítás)</value>
@@ -721,11 +702,8 @@
   <data name="TbSettingsExceptionTip" xml:space="preserve">
     <value>Kivétel. Ne használjon proxy szervert a címek esetében, amelyek pontosan itt kezdődnek, használjon pontosvesszőt (;)</value>
   </data>
-  <data name="TbSettingsHttpPort" xml:space="preserve">
-    <value>HTTP Port</value>
-  </data>
-  <data name="TbSettingsIgnoreGeoUpdateCore" xml:space="preserve">
-    <value>Geo fájlok figyelmen kívül hagyása a yalap frissítésekor</value>
+  <data name="TbSettingsDisplayRealTimeSpeed" xml:space="preserve">
+    <value>Display real-time speed</value>
   </data>
   <data name="TbSettingsKeepOlderDedupl" xml:space="preserve">
     <value>Régi megőrzése a deduplikáció során</value>
@@ -835,9 +813,6 @@
   <data name="menuWebsiteItem" xml:space="preserve">
     <value>{0} Weboldal</value>
   </data>
-  <data name="menuRoutingAdvanced" xml:space="preserve">
-    <value>Fejlett funkció</value>
-  </data>
   <data name="menuRoutingAdvancedAdd" xml:space="preserve">
     <value>Hozzáadás</value>
   </data>
@@ -855,18 +830,6 @@
   </data>
   <data name="TbdomainStrategy" xml:space="preserve">
     <value>Domain stratégia</value>
-  </data>
-  <data name="TbenableRoutingAdvanced" xml:space="preserve">
-    <value>Fejlett funkció engedélyezése</value>
-  </data>
-  <data name="TbRoutingTabBlock" xml:space="preserve">
-    <value>3. Domain vagy IP blokkolása</value>
-  </data>
-  <data name="TbRoutingTabDirect" xml:space="preserve">
-    <value>2. Közvetlen domain vagy IP</value>
-  </data>
-  <data name="TbRoutingTabProxy" xml:space="preserve">
-    <value>1. Proxy domain vagy IP</value>
   </data>
   <data name="TbRoutingTabRuleList" xml:space="preserve">
     <value>Előre definiált szabálykészletlista</value>
@@ -942,9 +905,6 @@
   </data>
   <data name="TbDisplayLog" xml:space="preserve">
     <value>Napló megjelenítése</value>
-  </data>
-  <data name="menuImportOldGuiConfig" xml:space="preserve">
-    <value>Régi konfiguráció importálása (guiNConfig)</value>
   </data>
   <data name="TbEnableTunAs" xml:space="preserve">
     <value>Tun engedélyezése</value>
@@ -1118,7 +1078,7 @@
     <value>Fenntartva (2,3,4)</value>
   </data>
   <data name="TbLocalAddress" xml:space="preserve">
-    <value>Cím (Ip,Ipv6)</value>
+    <value>Cím (Ipv4,Ipv6)</value>
   </data>
   <data name="TbPath7" xml:space="preserve">
     <value>obfs jelszó</value>
@@ -1243,14 +1203,8 @@
   <data name="TbSettingsDomainStrategy4Out" xml:space="preserve">
     <value>Alapértelmezett domain stratégia a kimenő forgalomhoz</value>
   </data>
-  <data name="menuSetDefaultMultipleServer" xml:space="preserve">
-    <value>Multi-szerver alacsony késleltetés</value>
-  </data>
   <data name="TbSettingsMainGirdOrientation" xml:space="preserve">
     <value>Fő elrendezés irányítása (indítás szükséges)</value>
-  </data>
-  <data name="menuSetDefaultLoadBalanceServer" xml:space="preserve">
-    <value>Multi-szerver terheléselosztás</value>
   </data>
   <data name="TbSettingsDomainDNSAddress" xml:space="preserve">
     <value>Kimenő DNS cím</value>
@@ -1266,9 +1220,6 @@
   </data>
   <data name="menuShowOrHideMainWindow" xml:space="preserve">
     <value>Fő ablak megjelenítése vagy elrejtése</value>
-  </data>
-  <data name="UpdateStandalonePackageTip" xml:space="preserve">
-    <value>Jelenleg egy önálló csomagot futtatsz, kérlek, töltsd le manuálisan a SelfContained.7z fájlt, bontsd ki és írd felül!</value>
   </data>
   <data name="TbPreSocksPort4Sub" xml:space="preserve">
     <value>Testreszabott konfigurációs socks port</value>
@@ -1318,9 +1269,6 @@
   <data name="TipActiveServer" xml:space="preserve">
     <value>Aktív</value>
   </data>
-  <data name="menuStorageUI" xml:space="preserve">
-    <value>Szoftverfelület elmentése</value>
-  </data>
   <data name="TbSettingsGeoFilesSource" xml:space="preserve">
     <value>Geo fájlok forrása (opcionális)</value>
   </data>
@@ -1341,6 +1289,9 @@
   </data>
   <data name="menuRegionalPresetsRussia" xml:space="preserve">
     <value>Oroszország</value>
+  </data>
+  <data name="menuRegionalPresetsIran" xml:space="preserve">
+    <value>Irán</value>
   </data>
   <data name="TbSettingsChinaUserTip" xml:space="preserve">
     <value>A Kínában élő felhasználók figyelmen kívül hagyhatják ezt a tételt</value>
@@ -1367,13 +1318,7 @@
     <value>Rendszer sudo jelszó</value>
   </data>
   <data name="TbSettingsLinuxSudoPasswordTip" xml:space="preserve">
-    <value>A jelszó titkosítva és csak a helyi fájlokban tárolva.</value>
-  </data>
-  <data name="TbSettingsLinuxSudoPasswordIsEmpty" xml:space="preserve">
-    <value>Kérlek, először állítsd be a sudo jelszót a Tun módban</value>
-  </data>
-  <data name="TbSettingsLinuxSudoPasswordNotSudoRunApp" xml:space="preserve">
-    <value>Kérlek, ne futtasd ezt az alkalmazást sudo-ként</value>
+    <value>The password you entered cannot be verified, so make sure you enter it correctly. If the application does not work properly due to an incorrect input, please restart the application. The password will not be stored and you will need to enter it again after each restart.</value>
   </data>
   <data name="TransportHeaderTypeTip5" xml:space="preserve">
     <value>*xhttp mód</value>
@@ -1384,8 +1329,8 @@
   <data name="TbSettingsHide2TrayWhenClose" xml:space="preserve">
     <value>Minimálás tálcára ablak zárásakor</value>
   </data>
-  <data name="TbSettingsSpeedTestPageSize" xml:space="preserve">
-    <value>Szám / időszak az automatikus batch során a sebességvizsgálat során (maximum 1000)</value>
+  <data name="TbSettingsMixedConcurrencyCount" xml:space="preserve">
+    <value>The number of concurrent during multi-test</value>
   </data>
   <data name="TbSettingsExceptionTip2" xml:space="preserve">
     <value>Kivétel. Ne használj proxy szervert a címeknél, évezz pontosvesszőt (,)</value>
@@ -1398,5 +1343,56 @@
   </data>
   <data name="TbRoutingInboundTagTips" xml:space="preserve">
     <value>socks: local port, socks2: second local port, socks3: LAN port</value>
+  </data>
+  <data name="TbSettingsTheme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="menuCopyProxyCmdToClipboard" xml:space="preserve">
+    <value>Copy proxy command to clipboard</value>
+  </data>
+  <data name="SpeedtestingTestFailedPart" xml:space="preserve">
+    <value>Starting retesting failed parts, {0} remaining. Press ESC to terminate...</value>
+  </data>
+  <data name="menuTestServerResult" xml:space="preserve">
+    <value>By test result</value>
+  </data>
+  <data name="menuRemoveInvalidServerResult" xml:space="preserve">
+    <value>Remove invalid by test results</value>
+  </data>
+  <data name="RemoveInvalidServerResultTip" xml:space="preserve">
+    <value>Removed {0} invalid test results.</value>
+  </data>
+  <data name="TbPorts7" xml:space="preserve">
+    <value>Server port range</value>
+  </data>
+  <data name="TbPorts7Tips" xml:space="preserve">
+    <value>Will cover the port, separate with commas (,)</value>
+  </data>
+  <data name="menuSetDefaultMultipleServer" xml:space="preserve">
+    <value>Multi-server to custom configuration</value>
+  </data>
+  <data name="menuSetDefaultMultipleServerXrayRandom" xml:space="preserve">
+    <value>Multi-server Random by Xray</value>
+  </data>
+  <data name="menuSetDefaultMultipleServerXrayRoundRobin" xml:space="preserve">
+    <value>Multi-server RoundRobin by Xray</value>
+  </data>
+  <data name="menuSetDefaultMultipleServerXrayLeastPing" xml:space="preserve">
+    <value>Multi-server LeastPing by Xray</value>
+  </data>
+  <data name="menuSetDefaultMultipleServerXrayLeastLoad" xml:space="preserve">
+    <value>Multi-server LeastLoad by Xray</value>
+  </data>
+  <data name="menuSetDefaultMultipleServerSingBoxLeastPing" xml:space="preserve">
+    <value>Multi-server LeastPing by sing-box</value>
+  </data>
+  <data name="menuExportConfig" xml:space="preserve">
+    <value>Export server</value>
+  </data>
+  <data name="TbSettingsIPAPIUrl" xml:space="preserve">
+    <value>Current connection info test URL</value>
+  </data>
+  <data name="TbRuleOutboundTagTip" xml:space="preserve">
+    <value>Can fill in the configuration remarks, please make sure it exist and are unique</value>
   </data>
 </root>

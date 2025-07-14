@@ -1,4 +1,4 @@
-﻿<UserControl
+<UserControl
     x:Class="v2rayN.Desktop.Views.ThemeSettingView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,58 +10,55 @@
     d:DesignWidth="800"
     x:DataType="vms:ThemeSettingViewModel"
     mc:Ignorable="d">
+    <UserControl.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="Width" Value="100" />
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="Width" Value="130" />
+        </Style>
+    </UserControl.Styles>
+
     <Button
-        Width="30"
-        Height="30"
-        Margin="10,0"
+        Width="{StaticResource IconButtonWidth}"
+        Height="{StaticResource IconButtonHeight}"
+        Margin="{StaticResource MarginLr8}"
         Theme="{DynamicResource BorderlessButton}">
         <Button.Content>
-            <PathIcon
-                Width="20"
-                Height="20"
-                Data="{StaticResource building_more}"
-                Foreground="{DynamicResource ButtonDefaultTertiaryForeground}" />
+            <PathIcon Data="{StaticResource building_more}" Foreground="{DynamicResource ButtonDefaultTertiaryForeground}" />
         </Button.Content>
         <Button.Flyout>
             <Flyout>
-                <StackPanel>
+                <StackPanel Margin="{StaticResource MarginTb8}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock
-                            Width="100"
+                            Margin="{StaticResource Margin4}"
                             VerticalAlignment="Center"
-                            Classes="Margin8"
-                            Text="{x:Static resx:ResUI.TbSettingsColorMode}" />
-                        <ToggleSwitch x:Name="togDarkMode" Classes="Margin8" />
+                            Text="{x:Static resx:ResUI.TbSettingsTheme}" />
+                        <ComboBox
+                            x:Name="cmbCurrentTheme"
+                            Margin="{StaticResource Margin4}"
+                            HorizontalAlignment="Center" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock
-                            Width="100"
+                            Margin="{StaticResource Margin4}"
                             VerticalAlignment="Center"
-                            Classes="Margin8"
-                            Text="{x:Static resx:ResUI.TbSettingsFollowSystemTheme}" />
-                        <ToggleSwitch x:Name="togFollowSystemTheme" Classes="Margin8" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            Width="100"
-                            VerticalAlignment="Center"
-                            Classes="Margin8"
                             Text="{x:Static resx:ResUI.TbSettingsFontSize}" />
                         <ComboBox
                             x:Name="cmbCurrentFontSize"
-                            Width="100"
-                            Classes="Margin8" />
+                            Margin="{StaticResource Margin4}"
+                            HorizontalAlignment="Center" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock
-                            Width="100"
+                            Margin="{StaticResource Margin4}"
                             VerticalAlignment="Center"
-                            Classes="Margin8"
                             Text="{x:Static resx:ResUI.TbSettingsLanguage}" />
                         <ComboBox
                             x:Name="cmbCurrentLanguage"
-                            Width="100"
-                            Classes="Margin8" />
+                            Margin="{StaticResource Margin4}"
+                            HorizontalAlignment="Center" />
                     </StackPanel>
                 </StackPanel>
             </Flyout>

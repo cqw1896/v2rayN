@@ -14,24 +14,27 @@ internal class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        OnStartup(args);
+        if (OnStartup(args) == false)
+        {
+            Environment.Exit(0);
+            return;
+        }
 
         BuildAvaloniaApp()
             .StartWithClassicDesktopLifetime(args);
     }
 
-    private static void OnStartup(string[]? Args)
+    private static bool OnStartup(string[]? Args)
     {
         if (Utils.IsWindows())
         {
             var exePathKey = Utils.GetMd5(Utils.GetExePath());
-            var rebootas = (Args ?? Array.Empty<string>()).Any(t => t == Global.RebootAs);
-            ProgramStarted = new EventWaitHandle(false, EventResetMode.AutoReset, exePathKey, out bool bCreatedNew);
+            var rebootas = (Args ?? []).Any(t => t == Global.RebootAs);
+            ProgramStarted = new EventWaitHandle(false, EventResetMode.AutoReset, exePathKey, out var bCreatedNew);
             if (!rebootas && !bCreatedNew)
             {
                 ProgramStarted.Set();
-                Environment.Exit(0);
-                return;
+                return false;
             }
         }
         else
@@ -39,18 +42,30 @@ internal class Program
             _ = new Mutex(true, "v2rayN", out var bOnlyOneInstance);
             if (!bOnlyOneInstance)
             {
-                Environment.Exit(0);
-                return;
+                return false;
             }
         }
+
+        if (!AppHandler.Instance.InitApp())
+        {
+            return false;
+        }
+        return true;
     }
 
     // Avalonia configuration, don't remove; also used by visual designer.
     public static AppBuilder BuildAvaloniaApp()
-    => AppBuilder.Configure<App>()
-        .UsePlatformDetect()
-        //.WithInterFont()
-        .WithFontByDefault()
-        .LogToTrace()
-        .UseReactiveUI();
+    {
+        return AppBuilder.Configure<App>()
+            .UsePlatformDetect()
+            //.WithInterFont()
+            .WithFontByDefault()
+            .LogToTrace()
+#if OS_OSX
+            .UseReactiveUI()
+            .With(new MacOSPlatformOptions { ShowInDock = AppHandler.Instance.Config.UiItem.MacOSShowInDock });
+#else
+            .UseReactiveUI();
+#endif
+    }
 }

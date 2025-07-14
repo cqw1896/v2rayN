@@ -5,7 +5,16 @@
   },
   "servers": [
     {
+      "address": "1.1.1.1",
+      "skipFallback": true,
+      "domains": [
+        "domain:googleapis.cn",
+        "domain:gstatic.com"
+      ]
+    },
+    {
       "address": "223.5.5.5",
+      "skipFallback": true,
       "domains": [
         "geosite:cn"
       ],

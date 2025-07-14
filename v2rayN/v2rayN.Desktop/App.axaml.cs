@@ -11,11 +11,6 @@ public partial class App : Application
 {
     public override void Initialize()
     {
-        if (!AppHandler.Instance.InitApp())
-        {
-            Environment.Exit(0);
-            return;
-        }
         AvaloniaXamlLoader.Load(this);
 
         AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
@@ -23,7 +18,7 @@ public partial class App : Application
 
         var ViewModel = new StatusBarViewModel(null);
         Locator.CurrentMutable.RegisterLazySingleton(() => ViewModel, typeof(StatusBarViewModel));
-        this.DataContext = ViewModel;
+        DataContext = ViewModel;
     }
 
     public override void OnFrameworkInitializationCompleted()
@@ -43,7 +38,7 @@ public partial class App : Application
     {
         if (e.ExceptionObject != null)
         {
-            Logging.SaveLog("CurrentDomain_UnhandledException", (Exception)e.ExceptionObject!);
+            Logging.SaveLog("CurrentDomain_UnhandledException", (Exception)e.ExceptionObject);
         }
     }
 
@@ -63,20 +58,26 @@ public partial class App : Application
             if (desktop.MainWindow != null)
             {
                 var clipboardData = await AvaUtils.GetClipboardData(desktop.MainWindow);
+                if (clipboardData.IsNullOrEmpty())
+                {
+                    return;
+                }
                 var service = Locator.Current.GetService<MainWindowViewModel>();
-                if (service != null) _ = service.AddServerViaClipboardAsync(clipboardData);
+                if (service != null)
+                {
+                    _ = service.AddServerViaClipboardAsync(clipboardData);
+                }
             }
         }
     }
 
     private async void MenuExit_Click(object? sender, EventArgs e)
     {
-        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        var service = Locator.Current.GetService<MainWindowViewModel>();
+        if (service != null)
         {
-            var service = Locator.Current.GetService<MainWindowViewModel>();
-            if (service != null) await service.MyAppExitAsync(false);
-
-            desktop.Shutdown();
+            await service.MyAppExitAsync(true);
         }
+        service?.Shutdown(true);
     }
 }
